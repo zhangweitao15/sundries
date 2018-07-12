@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form id="mainForm">
+        <input type="text" name="n">
+        <input type="text" name="p">
+        <input type="text" name="p">
+        <input type="button" id="btn" value="提交">
+    </form>
+    <script>
+       // 在按钮上绑定事件
+       document.getElementById('btn').onclick = function () {
+       // 用formdata对象一次性获取表单中的数据
+        // 1 获取form表单对象 
+        var fm = document.getElementById('mainForm');
+        var fd = new FormData(fm);
+        
+       // 
+       //当ajax发送到后端的数据是FormData时必须使用 post
+       var xhr  = getxhr();
+
+       xhr.onreadystatechange = function () {
+           if(xhr.readyState == 4) {
+               xhr.reapon
+           }
+       }
+       xhr.open('post', 'formdata.php');
+       //发送ajax请求并将 将FormData数据作为参数传入
+       xhr.send(fd);
+       }
+    </script>
+</body>
+</html>

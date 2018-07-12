@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <input type="text" id="txt" name="username"><span id="s"></span><br>
+        <input type="text" name="password"><br>
+        <input type="button" value="注册">
+    </form>
+    <script src="../ajax.js"></script>
+    <script>
+        //1 在用户名文本框上绑定失焦 事件
+        document.getElementById('txt').onblur = function(e) {
+            // 2. 获取用户名文本框中填写的内容
+            var username = document.getElementById('txt').value;
+
+
+            var xhr = getXhr();
+            // 可以在第一步骤中
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4) {
+                    var span_obj = document.getElementById('s')
+                    if(xhr.responseText == 1) {
+                        //可用
+                        span_obj.innerHTML = '用户名可用';
+                        span_obj.style.color = 'green';
+                    } else {
+                        //已被占用
+                        span_obj.innerHTML = '用户已被用';
+                        span_obj.style.color = 'red';
+                    }
+                }
+            }
+
+            //准备请求 get方式传参 get.php?uname=' + username
+            xhr.open('get', 'get.php?uname=' + username);
+            //发送请求
+            xhr.send(null);
+        }
+    </script>
+</body>
+
+</html>

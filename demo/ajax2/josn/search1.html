@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../ajax1/code/ajax.js"></script>
+    <!-- 引入库文件 -->
+    <script src="../../template-web.js"></script>
+</head>
+
+<body>
+    <input type="text" name="key" id="txt">
+    <input type="button" value="搜索" id="btn">
+    <table border="1" width="500">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>邮箱</th>
+                <th>昵称</th>
+                <th>性别</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+    <!-- 定义模板 拼接页面上需要的内容 
+         判断当输入的内容为空的时候显示
+        -->
+
+    <script type="text/template" id="tpl" >
+        {{if list.length !=0}}
+                {{each list as v}}
+                    <tr>
+                        <td>{{v.admin_id}}</td>
+                        <td>{{v.admin_email}}</td>
+                        <td>{{v.admin_nickname}}</td>
+                        <td>{{v.admin_gender}}</td>
+                        <td>{{v.admin_age}}</td>
+                    </tr>
+                {{/each}}
+        {{else}}
+                <tr>
+                    <td colspan="5" align="center">未查询到相关数据</td>
+                </tr>
+        {{/if}}
+    </script>
+    <script>
+        
+        // 1. 获取btn按钮并设置点击事件 
+        document.getElementById('btn').onclick = function() {
+            // 2. 点击后获取input中输入的内容 
+           var key = document.getElementById('txt').value;
+            // 发送ajax请求
+                // 1. 调用getXhr() 函数 实例化ajax 核心对象
+                var xhr = getXhr();
+                // 3. 利用onreadystatechange 事件接收 当readyState = 4的时候 用 responseText 接收后端返回的json 字符串
+                xhr.onreadystatechange = function () {
+                    //当readyState = 4的时候 用 responseText 接收后端返回的json 字符串
+                    if (xhr.readyState == 4) {
+                        //用 responseText 接收后端返回的json 字符串
+                        // console.log(xhr.responseText);
+                        // 模板引擎设置 引入模板库文件
+                    // 1. 将jaon字符串利用 JSON.parst 将jaon转换为json数组
+                    var arr = JSON.parse(xhr.responseText);
+                    // 2. 因为模板引擎只接收json对象 这里 需要转化一下
+                    var json = {"list":arr};
+                    // 4. 利用 template('id', json_obj) 将数据传入到拼接好的模板中
+                    var str = template('tpl', json);
+                    // 5. 将设置好的模板添加到对应的标签中;
+                    document.getElementById('tb').innerHTML = str;
+                    }
+                }
+            
+
+
+
+                // 2.1 准备ajax请求
+                xhr.open('post', 'search1.php')
+                    // 2.2 post需要拼接请求的主体部分 
+                var str = 'key=' + key;
+                console.log(str);
+                // 2.3 因为是post 设置请求头
+                xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+                // 2.4 发送请求
+                xhr.send(str);
+        }
+    </script>
+</body>
+
+</html>

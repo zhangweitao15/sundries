@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="brn" id="btn">
+    <script type="text/javascript">
+        function getXhr() {
+            var xmlhtttp;
+            if (window.XMLHttpRequest) {
+                
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject('Msxm12.XMLHTTP');
+            }
+            return xmlhttp;
+        }
+        // 获取按钮对象, 绑定点击事件
+        document.getElementById('btn').onclick = function () {
+            var xhr = getXhr();
+            xhr.
+            xhr.onreadystatechange = function() {
+                // alert(xhr.readyState);
+                if(xhr.readyState == 4) {
+                alert(xhr.responseText);
+                // }
+            }
+            xhr.open('get', './index.php');
+
+            xhr.send(null);
+            
+        }
+        
+        
+    </script>
+</body>
+</html>

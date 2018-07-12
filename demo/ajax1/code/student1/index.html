@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="随机获取" id="btn">
+    <div id="dv"></div>
+
+    <script src="../ajax.js"></script>
+    <script>
+        // 1. 设置鼠标点击事件
+        document.getElementById('btn').onclick = function () {
+            // 2. 发送 ajax 请求 
+            // 2.2. 实例化 ajax核心对象  XMLHttpRequest 对象
+            var xhr = getXhr();
+            xhr.onreadystatechange = function () {
+                    //判断readyState 是否等于4
+                    if(xhr.readyState == 4) {
+                    //等于4时客户端已接收到后端返回的所有数据;
+                    document.getElementById('dv').innerText = xhr.responseText
+                    }
+            }
+            //2.2. 准备ajax请求 
+            xhr.open('get', 'index.php');
+            //2.3. 发送ajax请求
+            xhr.send(null);
+        }
+    </script>
+</body>
+</html>

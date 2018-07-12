@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../ajax1/code/ajax.js"></script>
+    <!-- 引入模板引擎库文件 -->
+    <script src="../../template-web.js"></script>
+</head>
+<body>
+    <input type="text" name="key" id="txt">
+    <input type="button" value="搜索" id="btn">
+    <table border="1" width="500">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>邮箱</th>
+                <th>昵称</th>
+                <th>性别</th>
+                <th>年龄</th>
+            </tr>
+        </thead>
+        <tbody id="tb"></tbody>
+    </table>
+    <!-- 定义模板 在模板中拼接需要的页面结构 
+        因为是多个数据需要用到 each循环添加-->
+    <script type="text/template" id="tpl">
+        {{if list.length !=0}}
+            {{each list as v}}
+                <tr>
+                    <td>{{v.admin_id}}</td>
+                    <td>{{v.admin_email}}</td>
+                    <td>{{v.admin_nickname}}</td>
+                    <td>{{v.admin_gender}}</td>
+                    <td>{{v.admin_age}}</td>
+                </tr>
+            {{/each}}
+        {{else}}
+                <tr>
+                    <td colspan="5" align="center">未找到相关内容</td>
+                </tr>
+        {{/if}}    
+    </script>
+    <script>
+        // 1. 给btn按钮注册鼠标点击事件
+        document.getElementById('btn').onclick = function () {
+        // 2. 获input中输入的内容
+        var key = document.getElementById('txt').value;
+        // 3. 通过 getXhr() 得到 ajax核心对象
+        var xhr = getXhr();
+        // 5. 接收后端传回的数据 判断 是否=4 输出验证是否链接成功
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                // 接收json格式的字符串 
+                // console.log(xhr.responseText);
+                // 通过模板引擎输出到页面上 设置模板引擎
+                // 调用 JSON.parse方法将后端发送过来是json字符串转换成内部数json的数组
+                var json_arr = JSON.parse(xhr.responseText);
+                // console.log(json_arr);
+                // 因为模板引擎只接收json 对象 这里需要转化伪json
+                var json = {"list":json_arr};
+                //调用tamplate 方法将 将json数据添加到模板中
+                //参数1 样板id 参数二 json 格式的数组;
+                var str = template('tpl', json);
+                // console.log(json);
+                // 将转完成的数据添加到页面中
+                document.getElementById('tb').innerHTML = str;
+            }
+        }
+
+
+        // 4. 准备提交ajax到后端 4.1 准备 4.2 提交.
+
+        // 注意josn 方法只能使用post发送ajax请求
+        // 准备请求
+        xhr.open('post', 'search.php');
+        //发送请求post
+        var str = 'key=' + key;
+        // 重设请求头
+        xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+        console.log(str);
+        xhr.send(str);
+        };
+        
+
+
+    </script>
+</body>
+</html>

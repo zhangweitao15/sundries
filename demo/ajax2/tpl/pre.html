@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../template-web.js" ></script>
+</head>
+<body>
+    <div id="d"></div>
+    <script type="text/template" id="tpl">
+        {{if list.length != 0}}
+            {{each list as v}}
+            --{{v.id}}--{{v.goods_name}}--{{v.price}}<br>
+            {{/each}}
+        {{else}}
+            没有相关数据!!!
+        {{/if}}
+    </script>
+    <script>
+        // var json_arr = [
+        //     {"id":1, "goods_name":"小米 6", "price":1980},
+        //     {"id":2, "goods_name":"小米 8", "price":1990},
+        //     {"id":3, "goods_name":"小米 7", "price":1980},
+        //     {"id":4, "goods_name":"小米 9", "price":1980}
+        //  ];
+         var json_arr = [];
+        var json = {"list":json_arr};
+        var str = template('tpl', json);
+        document.getElementById('d').innerHTML = str;
+    </script>
+
+    <!-- <script>
+        var json = [
+    {"id":1, "goods_name":"小米 6", "price":1999},
+    {"id":2, "goods_name":"vivo x22", "price":2399},
+    {"id":3, "goods_name":"8848", "price":19999},
+];
+    </script> -->
+</body>
+</html>

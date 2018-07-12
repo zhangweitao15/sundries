@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        <input type="text" id="txt" name="username"><span id="s"></span><br>
+        <input type="text" name="password"><br>
+        <input type="button" value="注册">
+    </form>
+    <script src="../ajax.js"></script>
+    <script>
+        document.getElementById('txt').onblur = function () {
+            var username = document.getElementById('txt').value;
+            
+            var xhr = getXhr();
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+                    var span_obj = document.getElementById('s');
+                    if (xhr.responseText == 1) {
+                        sqan_obj.innerHTML = "用户名可用";
+                        span_obj.style.color = "green";
+                    } else {
+                        sqan_obj.innerHTML = "用户已被占用用";
+                        span_obj.style.color = "red";
+                    }
+                }
+            }
+            
+            // 准备请求
+            xhr.open('get', 'get1.php?uname' + une)
+
+        }
+    </script>
+</body>
+
+</html>

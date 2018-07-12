@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../../jquery-1.12.4.js" ></script>
+</head>
+<body>
+    <script>
+        // 参数1 请求后端的地址
+        // 参数2 可选参数 要发送后台的数据 推荐使用 json/js 对象
+        // 参数3 当readyState== 4 时 的回调函数, 其中的参数 msg 就是后端程序返回的数据
+        // 参数4 可选参数 设置返回值的类型 
+        $.get('./get.php', {id:10001}, function (msg) {
+            console.log(msg);
+            
+        } )
+    </script>
+</body>
+</html>

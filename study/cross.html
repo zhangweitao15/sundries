@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        input {
+            width: 400px;
+            height: auto;
+        }
+        #dv {
+            position: absolute;
+            width: 400px;
+            height: auto;
+            border: 1px solid #ccc;
+            display: none;
+        }
+        li {
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <input id="inp" type="text">
+    <div id="dv"></div>
+    <script>
+        $.ajax({
+            url: 'https://sug.so.360.cn/suggest?callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&fields=word&word=',
+            type: 'get',
+            dataTYPE: 'jsonp',
+            'jsonp': 'calback',
+            success: function (data) {
+                console.log(data);
+                
+                $()
+            }
+        })
+    </script>
+</body>
+</html>

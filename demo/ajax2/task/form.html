@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../template-web.js" ></script>
+    <script src="../../ajax1/code/ajax.js" ></script>
+</head>
+<body>
+   <form  id="form">
+      栏目: <input type="text" name="n"><br>
+      别名: <input type="text" name="b"><br>
+      时间: <input type="text" name="s"><br>
+      <input type="button" id="btn" value="添加" >
+   </form>
+   <script>
+       //在提交按钮上绑定点击事件 
+       document.getElementById('btn').onclick = function() {
+          // 使用formdata对象一次性获取表单中的所有数据
+              // 获取form表单对象 --- 必须是DOM对象
+              var fm = document.getElementById('form');
+              // 实例化FromData对象, 并将fm 作为参数传入
+        var fd = new FormData(fm);
+        
+        // 3 发送ajax请求, 并将表单的所有数据一起发送给后端PHP页面
+        //当ajax发送到后端的数据是FomData时 必须使用post方式来发送
+        var xhr = getXhr();
+
+        // 使用readystatechange 方法接收结果
+    xhr.onreadystatechange = function () {
+        // 判断当后端的结果完全返回
+        if(xhr.readyState == 4) {
+            //  alert(xhr.responseText);
+            if(xhr.responseText == 1) {
+                alert('添加成功');
+            } else {
+                alert('添加失败');
+            }
+        }
+    } 
+        
+        //准备ajax请求 --- 必须用post
+        xhr.open('post', 'form.php');
+        //发送ajax请求, 将FormDate数据作为参数传入
+        xhr.send(fd);
+       }
+   </script>
+</body>
+</html> 

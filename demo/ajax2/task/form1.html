@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form">
+        栏目: <input type="text" name="n"><br> 
+        别名:<input type="text" name="b"><br> 
+        时间: <input type="text" name="s"><br>
+        <input type="button" id="btn" value="添加">
+    </form>
+    <script>
+    // 1. 给按钮注册点击事件 
+    document.getElementById('btn').onclick = function() {
+        //获取页面的所有域中的内容
+        // 获取页面上 form 的id (必须是dom对象)
+        var fm = document.getElementById('form');
+        //使用 FormData 方法获取form中所有域中的内容
+        var fd = new FormData(fm);
+
+        xhr.onreadystatechange = function() {
+            // 判断当后端的结果完全返回
+            if (xhr.readyState == 4) {
+                //  alert(xhr.responseText);
+                if (xhr.responseText == 1) {
+                    alert('添加成功');
+                } else {
+                    alert('添加失败');
+                }
+            }
+        }
+
+        //准备ajax请求 --- 必须用post
+        xhr.open('post', 'form.php');
+        //发送ajax请求, 将FormDate数据作为参数传入
+        xhr.send(fd);
+        // 发送ajax请求 
+        // 1. 调用 getXhr() 函数实例化ajax核心对象
+        // 2. 准备ajax请求 注意 FormData (只能使用post提交 FormData不需要设置请求头)
+        // 3. 提交ajax请求  
+    }
+</script>
+</body>
+</html>

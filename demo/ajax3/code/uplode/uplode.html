@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../../jquery-1.12.4.js"></script>
+    <script src="../../../ajax1/code/ajax.js"></script>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="dv1" style="width: 300px; height: 20px; border: 1px solid blue; position: relative;">
+        <span id="s" style="position: absolute; left: 120px;"  >0%</span>
+        <div id="dv2" style="width: 0px; height: 20px; background: green;"></div>
+    </div>
+    <form id="fm">
+        <input type="file" name="f">
+        <input type="button" value="上传" id="btn">
+    </form>
+    <script>
+        // 给btn设置点击事件
+        document.getElementById('btn').onclick = function () {
+            //获取页面上的 form 存进fm变量中
+            var fm = document.getElementById('fm');
+            //实例化 FromData对象
+            var fd = new FormData(fm);
+        // 发送ajax请求  
+        // 1 调用getXhr()实例化ajax核心对象
+            var xhr = getXhr();
+        // 设置进度条
+          var  dv2 = document.getElementById('dv2');
+          var s = document.getElementById('s');
+          
+        // 通过调用 onprogess事件获取到上传进度
+        xhr.upload.onprogress = function (e) {
+            // 获取页面上内部的div的dom节点 
+        //通过 onprogess 的loaded已上传大小 / total总大小 来得到%比
+             bfb = (e.loaded / e.total).toFixed(2);
+        // 绘制进度条
+        console.log(bfb.length);
+        // console.log(dv2);
+            dv2.style.width = bfb * 300 + 'px';
+          if (bfb.length <= 4 ) {
+            s.innerText = bfb * 100 + '%';
+        };
+            
+            
+        }
+        
+        xhr.onreadystatechange = function () {
+            // 4. 通过  xhr.onreadystatechange 事件获取readyState 判断readyState == 4 时通过 reponreText 后端返回的数据
+            if (xhr.readyState == 4) {
+                if (xhr.responseText == 1) {
+                    console.log('文件传输成功');
+                } else {
+                    console.log('文件传输失败');
+                };
+            };
+        };
+        // 2. 准备上传
+        xhr.open('post', 'uplode.php');
+        xhr.send(fd);
+        // 3. 上传数据
+
+        }
+        
+    </script>
+</body>
+</html>
