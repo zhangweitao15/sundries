@@ -23,6 +23,7 @@
     <div class="container-fluid">
       <div class="page-title">
         <h1>分类目录</h1>
+        <input type="button" value="添加新栏目" onclick="location.href='addcate.php'" >
       </div>
       <!-- 有错误信息时展示 -->
       <!-- <div class="alert alert-danger">
@@ -57,12 +58,12 @@ $recutl_obj = mysqli_query($conn, $sql)
                 <td class="text-center"><input type="checkbox"></td>
                 <td><?php echo $row['cate_name']; ?></td>
                 <td><?php echo $row['cate_slug']; ?></td>
-                <td><?php date('Y-m-d', $row['cate_addtime']) ?></td>
+                <td><?php echo date('Y-m-d h:m:s', $row['cate_addtime']) ?></td>
                 <td><?php echo $row['cate_icon']; ?></td>
                 <td><?php echo ($row['cate_show']==1) ? '显示' : '不显示'; ?></td>
                 <td class="text-center">
-                  <a href="javascript:;" class="btn btn-info btn-xs">编辑</a>
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+                  <a href="editcate.php?id=<?php echo $row['cate_id'];?>" class="btn btn-info btn-xs">编辑</a>
+                  <a href="delcate_deal.php?id=<?php echo $row['cate_id']; ?>" class="btn btn-danger btn-xs" onclick="return confirm('您是否我确认删除该栏目')" >删除</a>
                 </td>
               </tr>
               <?php } ?>

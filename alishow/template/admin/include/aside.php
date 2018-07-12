@@ -11,7 +11,7 @@
 <body>
     <div class="aside">
         <div class="profile">
-            <img class="avatar" src="../uploads/avatar.jpg">
+            <img class="avatar" src="/template/uploads/avatar.jpg">
             <h3 class="name">布头儿</h3>
         </div>
         <ul class="nav">
