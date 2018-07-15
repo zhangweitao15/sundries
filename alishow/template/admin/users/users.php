@@ -80,7 +80,6 @@
   <script src="/template/assets/vendors/bootstrap/js/bootstrap.js"></script>
 
   <script>NProgress.done()</script>
-  <script src="/template/assets/vendors/ajax/ajax.js" ></script>
   <script>
     // 参数1 后端地址
     // 参数2 发送的文件
